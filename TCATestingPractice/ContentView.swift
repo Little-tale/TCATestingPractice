@@ -6,19 +6,29 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct ContentView: View {
+    
+    @Perception.Bindable var store: StoreOf<TestFeature>
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        WithPerceptionTracking {
+            VStack {
+                TextField(
+                    store.viewTextState.placeHolder,
+                    text: $store.textFieldText.sending(\.textFieldText)
+                )
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
+#if DEBUG
 #Preview {
-    ContentView()
+    ContentView(store: Store(initialState: TestFeature.State(), reducer: {
+        TestFeature()
+    }))
 }
+#endif
