@@ -15,10 +15,15 @@ struct ContentView: View {
     var body: some View {
         WithPerceptionTracking {
             VStack {
+                Text(store.textState)
                 TextField(
                     store.viewTextState.placeHolder,
                     text: $store.textFieldText.sending(\.textFieldText)
                 )
+                .padding(.leading, 10)
+                .frame(maxWidth: .infinity)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+
             }
             .padding()
         }

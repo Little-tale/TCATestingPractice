@@ -15,6 +15,7 @@ struct TestFeature {
     struct State {
         var textFieldText = ""
         var viewTextState = ViewTextState()
+        var textState = ""
     }
     
     enum Action {
@@ -38,7 +39,9 @@ struct TestFeature {
 }
 
 extension TestFeature {
+    /// 만약 12345 라는 문자열이라면 True 라고 해보겠습니다.
     private func textBind(state: inout TestFeature.State, text: String) {
         state.textFieldText = text
+        state.textState = text == "12345" ? "성공" : ""
     }
 }
