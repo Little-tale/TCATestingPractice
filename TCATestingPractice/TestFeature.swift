@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct TestFeature {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var textFieldText = ""
         var viewTextState = ViewTextState()
         var textState = ""
@@ -22,10 +22,11 @@ struct TestFeature {
         case textFieldText(String)
     }
     
-    struct ViewTextState {
+    struct ViewTextState: Equatable {
         let placeHolder = "Test TextField"
     }
     
+    @Dependency(\.uuid) var uuid
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
